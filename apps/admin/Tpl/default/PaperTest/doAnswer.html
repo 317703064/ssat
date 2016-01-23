@@ -1,0 +1,35 @@
+<style type="text/css">
+#show_icon img {width:100px;height:100px;}
+</style>
+
+<dl class="pop-area">
+  <dt class="mb10" style="overflow:hidden;*zoom:1;"><div class="l">回答内容：</div><div class="r">
+  
+  <textarea name="answer" id="answer" rows="10" cols="40">{$confusion.answer}</textarea>
+  </div></dt>
+  <dd><div class="l">疑惑内容：</div><div class="r">
+  
+  {$confusion.content}
+  </div></dd>
+  <dd>
+  	<input type="hidden" id="id" value="{$id}" />
+    <input type="button" class="btn_b" onclick="addAnswer()" value="确定" />
+    <input type="button" class="btn_w ml10" onclick="ui.box.close()" value="取消" />
+  </dd>
+  <div class="clear"></div>
+</dl>
+
+<script type="text/javascript">
+function addAnswer(){
+	var id=$('#id').val();
+	var answer=$('#answer').val();
+	$.post(U('admin/PaperTest/doAnswer'),{id:id,answer:answer},function (res){
+		if(res==1){
+			location.reload();
+		}else{
+			alert(res);
+			ui.error(res);
+		}
+	});
+}
+</script>
